@@ -6,19 +6,19 @@ let num2 = 0;
 let operator = '';
 
 const add = function(a,b) {
-
+  return a+b;
 }
 
 const subtract = function(a,b) {
-
+  return a-b;
 }
 
 const multiply = function(a,b) {
-
+  return a*b;
 }
 
 const divide = function(a,b) {
-
+  return a/b;
 }
 
 const operate = function(num1, num2, operator) {
