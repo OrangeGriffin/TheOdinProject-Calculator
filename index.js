@@ -21,17 +21,17 @@ const divide = function (a, b) {
   return a / b;
 };
 
-const operate = function (num1, num2, operators) {
-  console.log("This is the operate function");
-  console.log(num1, num2, operators);
-
-  switch(operators[1]) {
+const operate = function (numA, numB, operationsArray) {
+  switch (operationsArray[1]) {
     case "equals":
-      switch (operators[0]) {
+      switch (operationsArray[0]) {
         case "add":
-          console.log(add(num1,num2))
+          let result = add(numA,numB)
+          display.innerText = result
+          num1 = result;
+          num2 = null;
+          operators = [];
       }
-
   }
 };
 
@@ -52,14 +52,24 @@ const handleInput = function (event) {
     display.innerText = operator;
     num1 = Number(enteredValue);
     console.log("num1 is ", num1);
-    operators.push(event.target.id)
-    console.log(operators)
+    operators.push(event.target.id);
+    console.log(operators);
     enteredValue = "";
-  } else if (event.target.classList.contains("operator") && num1 !== null) {
+  } else if (
+    event.target.classList.contains("operator") &&
+    num1 !== null &&
+    enteredValue !== ""
+  ) {
     num2 = Number(enteredValue);
     console.log("num2 is ", num2);
-    operators.push(event.target.id)
+    operators.push(event.target.id);
+    enteredValue = "";
     operate(num1, num2, operators);
+  } else if (
+    event.target.classList.contains("operator") &&
+    operators.length === 0
+  ) {
+    operators.push(event.target.id);
   }
 };
 
