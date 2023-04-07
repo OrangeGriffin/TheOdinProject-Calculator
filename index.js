@@ -8,14 +8,6 @@ buttons.forEach((button) => {
   });
 });
 
-const getValue = function(event) {
-    let value = Number(event.target.innerText);
-    console.log(value);
-    console.log(typeof value);
-    displayValue(value)
-    return value
-}
-
 const displayValue = function(value) {
     display.innerText = value;
 }
