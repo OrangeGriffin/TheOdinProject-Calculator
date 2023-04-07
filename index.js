@@ -21,7 +21,7 @@ const divide = function(a,b) {
 
 }
 
-const operate = function() {
+const operate = function(num1, num2, operator) {
 
 }
 
