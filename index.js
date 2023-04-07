@@ -1,5 +1,9 @@
 const buttons = document.querySelectorAll(".button");
-const display = document.querySelector(".display")
+const display = document.querySelector(".display");
+let enteredValue  = '';
+let num1 = 0;
+let num2 = 0;
+let operator = '';
 
 const add = function(a,b) {
 
@@ -23,11 +27,13 @@ const operate = function() {
 
 buttons.forEach((button) => {
   button.addEventListener("click", (event) => {
-    //alert(button.id);
-    getValue(event);
+    console.log(event.target);
+    let value = event.target.innerText;
+    displayValue(value);
   });
 });
 
 const displayValue = function(value) {
-    display.innerText = value;
+    enteredValue += value;
+    display.innerText = enteredValue;
 }
