@@ -3,7 +3,7 @@ const display = document.querySelector(".display");
 let enteredValue = "";
 let num1 = null;
 let num2 = null;
-let operator = "";
+let operators = [];
 
 const add = function (a, b) {
   return a + b;
@@ -21,15 +21,23 @@ const divide = function (a, b) {
   return a / b;
 };
 
-const operate = function (num1, num2, operator) {};
+const operate = function (num1, num2, operators) {
+  console.log("This is the operate function");
+  console.log(num1, num2, operators);
 
-const handleOperands = function (num) {
+  switch(operators[1]) {
+    case "equals":
+      switch (operators[0]) {
+        case "add":
+          console.log(add(num1,num2))
+      }
 
+  }
 };
 
-const handleOperator = function (event) {
+const handleOperands = function (num) {};
 
-};
+const handleOperator = function (event) {};
 
 const handleInput = function (event) {
   if (
@@ -40,9 +48,18 @@ const handleInput = function (event) {
     console.log(enteredValue);
     handleDisplay(enteredValue);
   } else if (event.target.classList.contains("operator") && num1 === null) {
-    handleOperator(event);
+    operator = event.target.innerText;
+    display.innerText = operator;
     num1 = Number(enteredValue);
-    handleOperands(num);
+    console.log("num1 is ", num1);
+    operators.push(event.target.id)
+    console.log(operators)
+    enteredValue = "";
+  } else if (event.target.classList.contains("operator") && num1 !== null) {
+    num2 = Number(enteredValue);
+    console.log("num2 is ", num2);
+    operators.push(event.target.id)
+    operate(num1, num2, operators);
   }
 };
 
