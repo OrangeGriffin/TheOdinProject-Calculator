@@ -24,15 +24,11 @@ const divide = function (a, b) {
 const operate = function (num1, num2, operator) {};
 
 const handleOperands = function (num) {
-  if (!num1) {
-    num1 = num;
-  }
-  console.log("This is handleOperands. Number is: ", num);
+
 };
 
 const handleOperator = function (event) {
-  console.log("Went to handleOperator. Which is: ", event.target.innerText);
-  display.innerText = event.target.innerText;
+
 };
 
 const handleInput = function (event) {
@@ -43,9 +39,9 @@ const handleInput = function (event) {
     enteredValue += event.target.innerText;
     console.log(enteredValue);
     handleDisplay(enteredValue);
-  } else if (event.target.classList.contains("operator")) {
+  } else if (event.target.classList.contains("operator") && num1 === null) {
     handleOperator(event);
-    num = Number(enteredValue);
+    num1 = Number(enteredValue);
     handleOperands(num);
   }
 };
