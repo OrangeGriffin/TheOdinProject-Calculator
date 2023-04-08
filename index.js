@@ -76,7 +76,13 @@ const handleInput = function (event) {
   if (event.target.classList.contains("number")) {
     enteredNum += event.target.innerText;
     handleDisplay(enteredNum);
-  } else if (event.target.classList.contains("operator")) {
+  } else if (event.target.classList.contains("decimal")) {
+    if ((enteredNum === '' || !enteredNum.match(/\./g)) && !num1) {
+      enteredNum += event.target.innerText;
+      handleDisplay(enteredNum);
+    }
+  }
+  else if (event.target.classList.contains("operator")) {
     handleOperands(enteredNum);
     handleDisplay(event.target.innerText);
     handleOperator(event);
