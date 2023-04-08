@@ -19,7 +19,10 @@ const multiply = function (a, b) {
 };
 
 const divide = function (a, b) {
-  return a / b;
+  if (b !== 0) {
+    return a/ b;
+  } else 
+    return 'ERR';
 };
 
 const operate = function (numA, numB, operator) {
