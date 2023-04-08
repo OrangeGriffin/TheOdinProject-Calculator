@@ -20,9 +20,8 @@ const multiply = function (a, b) {
 
 const divide = function (a, b) {
   if (b !== 0) {
-    return a/ b;
-  } else 
-    return 'ERR';
+    return a / b;
+  } else return "ERR";
 };
 
 const operate = function (numA, numB, operator) {
@@ -33,19 +32,19 @@ const operate = function (numA, numB, operator) {
       num1 = result;
       num2 = null;
       break;
-    case 'subtract':
+    case "subtract":
       result = subtract(numA, numB);
       handleDisplay(result);
       num1 = result;
       num2 = null;
       break;
-    case 'multiply':
+    case "multiply":
       result = multiply(numA, numB);
       handleDisplay(result);
       num1 = result;
       num2 = null;
       break;
-    case 'divide':
+    case "divide":
       result = divide(numA, numB);
       handleDisplay(result);
       num1 = result;
@@ -85,7 +84,9 @@ const handleInput = function (event) {
 };
 
 const handleDisplay = function (enteredValue) {
-  display.innerText = enteredValue;
+  if (enteredNum.length < 55) {
+    display.innerText = enteredValue;
+  }
 };
 
 buttons.forEach((button) => {
