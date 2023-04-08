@@ -1,5 +1,6 @@
 const buttons = document.querySelectorAll(".button");
 const display = document.querySelector(".display");
+const clearBtn = document.querySelector("#clear");
 let enteredNum = "";
 let enteredValue = "";
 let num1 = null;
@@ -22,6 +23,14 @@ const divide = function (a, b) {
   if (b !== 0) {
     return a / b;
   } else return "ERR";
+};
+
+const clear = function () {
+  enteredNum = "";
+  enteredValue = "";
+  num1 = null;
+  num2 = null;
+  operators = [];
 };
 
 const operate = function (numA, numB, operator) {
@@ -77,21 +86,27 @@ const handleInput = function (event) {
     enteredNum += event.target.innerText;
     handleDisplay(enteredNum);
   } else if (event.target.classList.contains("decimal")) {
-    if ((enteredNum === '' || !enteredNum.match(/\./g)) && !num1) {
+    if ((enteredNum === "" || !enteredNum.match(/\./g)) && !num1) {
       enteredNum += event.target.innerText;
       handleDisplay(enteredNum);
     }
-  }
-  else if (event.target.classList.contains("operator")) {
+  } else if (event.target.classList.contains("operator")) {
     handleOperands(enteredNum);
     handleDisplay(event.target.innerText);
     handleOperator(event);
+  } else if (event.target.id === 'clear') {
+    clear();
+    handleDisplay("clear");
   }
 };
 
 const handleDisplay = function (enteredValue) {
-  if (enteredNum.length < 55) {
+  if (enteredNum.length < 55 && enteredValue !== "clear") {
     display.innerText = enteredValue;
+  } 
+
+  if (enteredValue==="clear") {
+    display.innerText = 0;
   }
 };
 
