@@ -150,7 +150,6 @@ const handleInput = function (event) {
       }
       break;
     case "keydown":
-      console.log(event);
       if (event.code.includes("Digit")) {
         enteredNum += event.key;
         handleDisplay(enteredNum);
@@ -163,6 +162,9 @@ const handleInput = function (event) {
         handleOperands(enteredNum);
         handleDisplay(event.key);
         handleOperator(event);
+      } else if (event.code.includes("Backspace")) {
+        enteredNum = enteredNum.slice(0, enteredNum.length-1);
+        handleDisplay(enteredNum);
       }
       break;
   }
@@ -188,7 +190,13 @@ buttons.forEach((button) => {
 document.addEventListener(
   "keydown",
   (event) => {
-    if (event.key.match(/[0-9]/) || operatorSymbol.includes(event.key) || event.code.includes("Period")) {
+    console.log(event);
+    if (
+      event.key.match(/[0-9]/) ||
+      operatorSymbol.includes(event.key) ||
+      event.code.includes("Period") ||
+      event.code.includes("Backspace")
+    ) {
       handleInput(event);
     }
   },
