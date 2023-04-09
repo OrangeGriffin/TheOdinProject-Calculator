@@ -6,6 +6,7 @@ let enteredValue = "";
 let num1 = null;
 let num2 = null;
 let operators = [];
+let operatorSymbol = ["+", "=", "-", "/", "*"];
 
 const add = function (a, b) {
   return a + b;
@@ -73,45 +74,123 @@ const handleOperands = function (num) {
 };
 
 const handleOperator = function (event) {
-  operators.push(event.target.id);
+  switch (event.type) {
+    case "click":
+      operators.push(event.target.id);
 
-  if (operators.length == 2 && operators[1] === "equals") {
-    operate(num1, num2, operators[0]);
-    operators = [];
+      if (operators.length == 2 && operators[1] === "equals") {
+        operate(num1, num2, operators[0]);
+        operators = [];
+      }
+      break;
+    case "keydown":
+      switch (event.key) {
+        case "-":
+          console.log("operator is minus");
+          operators.push("subtract");
+          if (operators.length == 2 && operators[1] === "equals") {
+            operate(num1, num2, operators[0]);
+            operators = [];
+          }
+          break;
+        case "+":
+          console.log("operator is plus");
+          operators.push("add");
+          if (operators.length == 2 && operators[1] === "equals") {
+            operate(num1, num2, operators[0]);
+            operators = [];
+          }
+          break;
+        case "*":
+          console.log("operator is multiply");
+          operators.push("multiply");
+          if (operators.length == 2 && operators[1] === "equals") {
+            operate(num1, num2, operators[0]);
+            operators = [];
+          }
+          break;
+        case "/":
+          console.log("operator is divide");
+          operators.push("divide");
+          if (operators.length == 2 && operators[1] === "equals") {
+            operate(num1, num2, operators[0]);
+            operators = [];
+          }
+          break;
+        case "=":
+          console.log("operator is equals");
+          operators.push("equals");
+          if (operators.length == 2 && operators[1] === "equals") {
+            operate(num1, num2, operators[0]);
+            operators = [];
+          }
+          break;
+      }
   }
 };
 
 const handleInput = function (event) {
-  if (event.target.classList.contains("number")) {
-    enteredNum += event.target.innerText;
-    handleDisplay(enteredNum);
-  } else if (event.target.classList.contains("decimal")) {
-    if ((enteredNum === "" || !enteredNum.match(/\./g)) && !num1) {
-      enteredNum += event.target.innerText;
-      handleDisplay(enteredNum);
-    }
-  } else if (event.target.classList.contains("operator")) {
-    handleOperands(enteredNum);
-    handleDisplay(event.target.innerText);
-    handleOperator(event);
-  } else if (event.target.id === 'clear') {
-    clear();
-    handleDisplay("clear");
+  switch (event.type) {
+    case "click":
+      if (event.target.classList.contains("number")) {
+        enteredNum += event.target.innerText;
+        handleDisplay(enteredNum);
+      } else if (event.target.classList.contains("decimal")) {
+        if ((enteredNum === "" || !enteredNum.match(/\./g)) && !num1) {
+          enteredNum += event.target.innerText;
+          handleDisplay(enteredNum);
+        }
+      } else if (event.target.classList.contains("operator")) {
+        handleOperands(enteredNum);
+        handleDisplay(event.target.innerText);
+        handleOperator(event);
+      } else if (event.target.id === "clear") {
+        clear();
+        handleDisplay("clear");
+      }
+      break;
+    case "keydown":
+      console.log(event);
+      if (event.code.includes("Digit")) {
+        enteredNum += event.key;
+        handleDisplay(enteredNum);
+      } else if (event.code.includes("Period")) {
+        if ((enteredNum === "" || !enteredNum.match(/\./g)) && !num1) {
+          enteredNum += event.key;
+          handleDisplay(enteredNum);
+        }
+      } else if (operatorSymbol.includes(event.key)) {
+        handleOperands(enteredNum);
+        handleDisplay(event.key);
+        handleOperator(event);
+      }
+      break;
   }
 };
 
 const handleDisplay = function (enteredValue) {
   if (enteredNum.length < 55 && enteredValue !== "clear") {
     display.innerText = enteredValue;
-  } 
+  }
 
-  if (enteredValue==="clear") {
+  if (enteredValue === "clear") {
     display.innerText = 0;
   }
 };
 
 buttons.forEach((button) => {
   button.addEventListener("click", (event) => {
+    console.log(event);
     handleInput(event);
   });
 });
+
+document.addEventListener(
+  "keydown",
+  (event) => {
+    if (event.key.match(/[0-9]/) || operatorSymbol.includes(event.key) || event.code.includes("Period")) {
+      handleInput(event);
+    }
+  },
+  false
+);
